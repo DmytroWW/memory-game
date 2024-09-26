@@ -6,7 +6,7 @@ const modal = document.querySelector('.modal');
 const modalScoreBlock = document.querySelector('.modal-score');
 const modalTurnsBlock = document.querySelector('.modal-turns');
 const historyList = document.querySelector('.gamesLogs-ul');
-const newGameButton = document.querySelector('.modal_newgame-btn')
+const newGameButton = document.querySelector('.modal_newgame-btn');
 
 
 let hasFlippedCard = false;
@@ -144,31 +144,35 @@ function closeModal() {
 	modal.style.display = 'none';
 }
 
-function startNewGame() {
-	currentScore = 0;
-	currentTurn = 0;
-	changeCurrentScore();
-	changeCurrentTurn();
+// function startNewGame() {
+// 	currentScore = 0;
+// 	currentTurn = 0;
+// 	changeCurrentScore();
+// 	changeCurrentTurn();
 
-	   cards.forEach(card => {
-        card.classList.remove('flip');
-        card.addEventListener("click", flipCard); // Додаємо слухач подій
-    });
+// 	   cards.forEach(card => {
+//         card.classList.remove('flip');
+//         card.addEventListener("click", flipCard); 
+//     });
 
-	resetBoard();
+// 	resetBoard();
 
-	shuffle();
+// 	shuffle();
 
-	displayGameHistory();
+// 	displayGameHistory();
 
-	closeModal();
-}
+// 	closeModal();
+// }
 
 
 function endGame() {
 	saveGameResult();
 	displayGameHistory();
 	showModal();
+	newGameButton.addEventListener('click', () => {
+    location.reload(); 
+});
+	
 }
 
 
@@ -183,6 +187,6 @@ function endGame() {
 
 displayGameHistory();
 
-newGameButton.addEventListener('click', startNewGame);
+
 
 cards.forEach(card => card.addEventListener("click", flipCard));
