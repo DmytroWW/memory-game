@@ -78,10 +78,9 @@ h1,
 .cards .container {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  padding-top: 50px;
 }
 .cards-container {
-  padding-top: 50px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(4, 1fr);
@@ -134,6 +133,7 @@ h1,
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 2;
+  display: none;
 }
 
 .overlay {

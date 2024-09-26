@@ -1,6 +1,12 @@
 const cards = document.querySelectorAll('.card');
-const scoreBlock = document.querySelector('.current-score')
-const turnBlock = document.querySelector('.current-turn')
+const scoreBlock = document.querySelector('.current-score');
+const turnBlock = document.querySelector('.current-turn');
+const overlay = document.querySelector('.overlay');
+const modal = document.querySelector('.modal');
+const modalScoreBlock = document.querySelector('.modal-score');
+const modalTurnsBlock = document.querySelector('.modal-turns');
+const historyList = document.querySelector('.gamesLogs-ul');
+const newGameButton = document.querySelector('.modal_newgame-btn')
 
 
 let hasFlippedCard = false;
@@ -46,6 +52,7 @@ function checkForMatch() {
 		changeCurrentTurn();
 		currentScore = currentScore + 10;
 		changeCurrentScore()
+		checkEndOfGame()
     } else {
         unflipCards(); // Викликаємо, якщо картки не співпали
 		changeCurrentTurn();
@@ -85,6 +92,87 @@ function resetBoard() {
 
 
 
+function checkEndOfGame() {
+	const allFlipped = document.querySelectorAll('.card.flip');
+	if (allFlipped.length === cards.length) {
+		endGame();
+	}
+}
+
+function saveGameResult() {
+
+
+	let history = JSON.parse(localStorage.getItem('gameHistory')) || [];
+
+	const gameResult = {
+		score: currentScore,
+		turns: currentTurn,
+		date: new Date().toLocaleString()
+	};
+
+	history.push(gameResult);
+
+	if (history.length > 10) {
+        history.shift();
+    }
+
+	localStorage.setItem('gameHistory', JSON.stringify(history));
+}
+
+
+function displayGameHistory() {
+	historyList.innerHTML = '';
+	
+	const history = JSON.parse(localStorage.getItem('gameHistory')) || [];
+
+	history.forEach(game => {
+		const li = document.createElement('li');
+		li.classList.add('gameLogs-li');
+		li.textContent = `Date: ${game.date}, Score: ${game.score}, Turns: ${game.turns}`;
+		historyList.appendChild(li);
+	})
+}
+
+function showModal() {
+	modalScoreBlock.innerHTML = `${currentScore}`;
+	modalTurnsBlock.innerHTML = `${currentTurn}`;
+	overlay.style.display = 'block';
+	modal.style.display = 'block';
+}
+function closeModal() {
+	overlay.style.display = 'none';
+	modal.style.display = 'none';
+}
+
+function startNewGame() {
+	currentScore = 0;
+	currentTurn = 0;
+	changeCurrentScore();
+	changeCurrentTurn();
+
+	   cards.forEach(card => {
+        card.classList.remove('flip');
+        card.addEventListener("click", flipCard); // Додаємо слухач подій
+    });
+
+	resetBoard();
+
+	shuffle();
+
+	displayGameHistory();
+
+	closeModal();
+}
+
+
+function endGame() {
+	saveGameResult();
+	displayGameHistory();
+	showModal();
+}
+
+
+
 (function shuffle() {
 	cards.forEach(card => {
 		let randomPos = Math.floor(Math.random() * 12);
@@ -92,5 +180,9 @@ function resetBoard() {
 	});
 })();
 
+
+displayGameHistory();
+
+newGameButton.addEventListener('click', startNewGame);
 
 cards.forEach(card => card.addEventListener("click", flipCard));
