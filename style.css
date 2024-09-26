@@ -37,7 +37,9 @@ body {
 .header .turn,
 .gamesLogs-p,
 h1,
-.footer p {
+.footer p,
+.modal,
+.modal_newgame-btn {
   font-size: 24px;
   font-weight: bold;
   padding: 10px;
@@ -62,7 +64,7 @@ h1,
   margin-left: 10px;
   padding: 10px 10px;
   margin-top: 10px;
-  background-color: #e17c05;
+  background-color: #f4a261;
   color: #fff;
   border-radius: 5px;
   font-size: 14px;
@@ -118,6 +120,31 @@ h1,
 
 .card:active {
   transform: scale(1.05);
+}
+
+/* MODAL */
+
+.modal {
+  width: 300px;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7); /* Напівпрозорий чорний фон */
+  z-index: 1; /* Оверлей буде під модальним вікном */
+  display: none;
 }
 
 /* FOOTER */
