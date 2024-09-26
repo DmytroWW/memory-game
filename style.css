@@ -124,7 +124,7 @@ h1,
 /* MODAL */
 
 .modal {
-  width: 300px;
+  padding: 50px;
   position: absolute;
   display: flex;
   flex-direction: column;
