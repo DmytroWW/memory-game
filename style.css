@@ -71,6 +71,7 @@ h1,
 /* CARDS */
 .cards {
   flex: 1;
+  perspective: 1000px;
 }
 .cards .container {
   display: flex;
@@ -89,11 +90,25 @@ h1,
   width: 150px;
   height: 150px;
   perspective: 1000px;
-  background-color: #e7d5c6;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.5s;
+  transform-style: preserve-3d;
+  position: relative;
+}
+.front-face-img,
+.back-face-img {
+  position: absolute;
+  background-color: hwb(28 88% 5%);
   border-radius: 10px;
   border: 3px solid #b98036;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  transition: transform 0.5s;
+  backface-visibility: hidden;
+}
+.front-face-img {
+  transform: rotateY(180deg);
+}
+.card.flip {
+  transform: rotateY(180deg);
 }
 
 .card img {
