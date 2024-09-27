@@ -136,6 +136,11 @@ h1,
   display: none;
 }
 
+.modal p {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
 .overlay {
   position: fixed;
   top: 0;
